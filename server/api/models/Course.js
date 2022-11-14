@@ -7,7 +7,7 @@ var CourseSchema = new mongoose.Schema(
           require: true,
       },
       duration: {
-        type: String,
+        type: Number,
         require: true,
       },
       description: {

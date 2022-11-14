@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import studentsRoute from "./routes/students.js";
 import coursesRoute from "./routes/courses.js";
+import feeRoute from "./routes/fee.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use("/api/students", studentsRoute);
 app.use("/api/courses", coursesRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/fees", feeRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -38,7 +40,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(9010, () => {
+app.listen(9020, () => {
     connect();
     console.log("Connected to backend.");
   });

@@ -1,14 +1,23 @@
 import Course from "../models/Course.js";
+import Fees from "../models/Fees.js"
 
 export const createCourse = async (req,res,next)=>{
   const newCourse = new Course(req.body);
+  const FeesId = req.params.FeesId;
   try {
     const savedCourse = await newCourse.save();
-    res.status(200).json(savedCourse);
-      } catch (err) {
-        next(err);
-      }
-    };
+    try {
+      await Fees.findByIdAndUpdate(FeesId, {
+        $push: { fees: savedCourse._id },
+      });
+    } catch (err) {
+    next(err);
+  }
+  res.status(200).json(savedCourse);
+} catch (err) {
+  next(err);
+}
+};
 
 export const updateCourse = async (req,res,next)=>{
   try {

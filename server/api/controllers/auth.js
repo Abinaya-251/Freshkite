@@ -1,4 +1,5 @@
 import Student from "../models/Student.js";
+import Course from "../models/Course.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -7,7 +8,7 @@ export const register = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-
+    const CourseId = req.params.CourseId;
     const newStudent = new Student({
       name: req.body.name,
       course: req.body.course,
@@ -16,10 +17,17 @@ export const register = async (req, res, next) => {
       phone: req.body.phone,
       password: hash,
     });
-
+    const savedStudent = await newStudent.save();
+    const course = await Course.findOne({ course: req.body.course})
+    if (!course) return next(createError(403, "Course not found"))
+    else {
+      await Course.findByIdAndUpdate(CourseId, {
+        $push: { course: savedStudent._id },
+      });
+    } 
     await newStudent.save();
     res.status(200).send("Student has been created.");
-  } catch (err) {
+ } catch (err) {
     next(err);
   }
 };
