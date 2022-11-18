@@ -10,10 +10,14 @@ var FeesSchema = new mongoose.Schema(
         type: Number,
         require: true, 
       },
+      mkv : [{
+        _id : Number,
+        year : Number,
+        }],
+
       course: {
         type: String,
         require: true,
-
       }
     }
   )
