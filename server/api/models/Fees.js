@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
 var FeesSchema = new mongoose.Schema(
     {
-      totalfees: {
+      totalFees: {
         type: Number,
         require: true, 
       },
@@ -10,13 +10,8 @@ var FeesSchema = new mongoose.Schema(
         type: Number,
         require: true, 
       },
-      mkv : [{
-        _id : Number,
-        year : Number,
-        }],
-
-      course: {
-        type: String,
+      courseId: {
+        type: Number,
         require: true,
       }
     }

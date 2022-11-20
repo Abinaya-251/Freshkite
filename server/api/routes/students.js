@@ -13,10 +13,10 @@ const router = express.Router();
 router.put("/:id", verifyStudent, updateStudent);
 
 //DELETE STUDENT
-router.delete("/:id",verifyStudent, deleteStudent);
+router.delete("/:id", verifyAdmin, deleteStudent);
 
 //GET STUDENT
-router.get("/:id", verifyStudent, getStudent);
+router.get("/:id", verifyAdmin, getStudent);
 
 //GET ALL STUDENT
 router.get("/", verifyAdmin, getStudents);

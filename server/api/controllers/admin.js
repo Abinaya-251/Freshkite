@@ -13,7 +13,6 @@ export const register = async (req, res, next) => {
       phone: req.body.phone,
       password: hash,
     });
-    const savedAdmin = await newAdmin.save();
     await newAdmin.save();
     res.status(200).send("Admin has been created.");
  } catch (err) {
