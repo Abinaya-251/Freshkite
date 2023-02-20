@@ -6,6 +6,7 @@ import adminRoute from "./routes/admin.js";
 import studentsRoute from "./routes/students.js";
 import coursesRoute from "./routes/courses.js";
 import feeRoute from "./routes/fee.js";
+import payRoute from "./routes/payfees.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -30,6 +31,7 @@ app.use("/api/students", studentsRoute);
 app.use("/api/courses", coursesRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/fees", feeRoute);
+app.use("/api/pay", payRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

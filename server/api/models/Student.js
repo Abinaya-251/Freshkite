@@ -2,38 +2,37 @@ import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
 const StudentSchema = new mongoose.Schema(
   {
-    name: {
+    fname: {
       type: String,
-      required: true,
+      require: true,
+    },
+    lname: {
+      type: String,
+      require: true,
     },
     course: {
       type: String,
-      required: true,
+      require: true,
     },
     year: {
       type: String,
-      required: true,
+      require: true,
     },
-
     email: {
       type: String,
-      required: true,
+      require: true,
       unique: true,
     },
     phone: {
         type: String,
-        required: true,
+        require: true,
         unique: true,
 
     },
     password: {
       type: String,
-      required: true,
+      require: true,
       unique: true,
-    },
-    isAdmin: {
-      type: Boolean,
-      defualt: false,
     },
   },
     { timestamps: true }

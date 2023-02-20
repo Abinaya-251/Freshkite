@@ -3,9 +3,13 @@ import autoIncrement from "mongoose-auto-increment";
 
 var AdminSchema = new mongoose.Schema(
     {
-      name: {
+      fname: {
           type: String,
           require: true,
+      },
+      lname: {
+        type: String,
+        require: true,
       },
       email: {
         type: String,
@@ -19,13 +23,17 @@ var AdminSchema = new mongoose.Schema(
         type: String,
         require: true,
       },
+      isAdmin: {
+        type: Boolean,
+        default: true,
+      },
     }
   )
 autoIncrement.initialize(mongoose.connection);
 AdminSchema.plugin(autoIncrement.plugin, {
   model: "Admin", 
   field: "_id", 
-  startAt: 1, 
+  startAt: 3001, 
   incrementBy: 1, 
 });
   export default mongoose.model("Admin", AdminSchema);

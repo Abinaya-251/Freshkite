@@ -1,5 +1,6 @@
 import Student from "../models/Student.js";
 import Course from "../models/Course.js";
+import Fees from "../models/Fees.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
@@ -8,7 +9,7 @@ export const register = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    const CourseId = req.params.CourseId;
+    //const CourseId = req.params.CourseId;
     const newStudent = new Student({
       name: req.body.name,
       course: req.body.course,
@@ -16,15 +17,22 @@ export const register = async (req, res, next) => {
       email: req.body.email,
       phone: req.body.phone,
       password: hash,
-    });
+    })
     const savedStudent = await newStudent.save();
     const course = await Course.findOne({ course: req.body.course})
     if (!course) return next(createError(403, "Course not found"))
     else {
-      await Course.findByIdAndUpdate(CourseId, {
-        $push: { course: savedStudent._id },
+      await Course.findOneAndUpdate(course, {
+        $push: { studentIds: savedStudent._id },
       });
     } 
+    const fees = await Fees.findOne({ year: req.body.year})
+    if (!fees) return next(createError(402, "No fee defined for course"))
+    else {
+      await Fees.findOneAndUpdate(fees, {
+        $push: { StudentIds: savedStudent._id },
+      });
+    }
     await newStudent.save();
     res.status(200).send("Student has been created.");
  } catch (err) {
@@ -33,7 +41,7 @@ export const register = async (req, res, next) => {
 };
 export const login = async (req, res, next) => {
   try {
-    const student = await Student.findOne({ name: req.body.name });
+    const student = await Student.findOne({ email: req.body.email });
     if (!student) return next(createError(404, "Student not found!"));
 
     const isPasswordCorrect = await bcrypt.compare(

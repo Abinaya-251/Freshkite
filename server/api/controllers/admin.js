@@ -51,7 +51,7 @@ export const createstudent = async (req, res, next) => {
 };
 export const login = async (req, res, next) => {
   try {
-    const admin = await Admin.findOne({ name: req.body.name });
+    const admin = await Admin.findOne({ lname: req.body.name });
     if (!admin) return next(createError(404, "Admin not found!"));
 
     const isPasswordCorrect = await bcrypt.compare(

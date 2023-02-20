@@ -33,8 +33,8 @@ export const deleteFees = async (req,res,next)=>{
 };
     export const getFees = async (req,res,next)=>{
       try {
-        const fees = await Fees.findById(req.params.id);
-        res.status(200).json(Fees);
+        const fees2 = await Fees.findById(req.params.id);
+        res.status(200).json(fees2);
       } catch (err) {
         next(err);
       }

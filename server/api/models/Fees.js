@@ -10,17 +10,23 @@ var FeesSchema = new mongoose.Schema(
         type: Number,
         require: true, 
       },
-      courseId: {
-        type: Number,
+      CourseName: {
+        type: String,
         require: true,
-      }
+      },
+      CourseIds: {
+        type: [String],
+      },
+      StudentIds: {
+        type: [String],
+      },
     }
   )
   autoIncrement.initialize(mongoose.connection);
   FeesSchema.plugin(autoIncrement.plugin, {
     model: "Fees", 
     field: "_id", 
-    startAt: 201, 
+    startAt: 2001, 
     incrementBy: 1, 
   });
   

@@ -14,6 +14,9 @@ var CourseSchema = new mongoose.Schema(
         type: String,
         require: true,
       },
+      studentIds: {
+        type: [String],
+      },
     }
   )
 autoIncrement.initialize(mongoose.connection);

@@ -6,7 +6,7 @@ import {
   getStudents,
 } from "../controllers/student.js";
 
-import { verifyAdmin, verifyToken, verifyStudent } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyStudent } from "../utils/verifyToken.js";
 
 const router = express.Router();
 //UPDATE  STUDENT
